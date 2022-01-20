@@ -4,10 +4,12 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
 var engine, world;
-var backgroundImg,pc;
+var backgroundImg,backgroundImg2,pc1,ground;
 
 var gameState = "onSling";
 var bg = "sprites/ciudad.jpg";
+var bg2 = "sprites/ciudadnoche.jpg";
+var base = "sprites/base.png";
 var score = 0;
 
 function preload() {
@@ -19,14 +21,14 @@ function setup(){
     engine = Engine.create();
     world = engine.world;
     ground = new Ground(600,height,1200,20);
-    //pc = new Pc(20,370);
-    pc1=createSprite(20,370);
+    pc1 = new Pc(50,190,30);
+    //pc1=createSprites(20,370);
    
 }
 
 function draw(){
-    if(backgroundImg)
-        background(backgroundImg);
+    if(backgroundImg, backgroundImg2)
+        background(backgroundImg, backgroundImg2);
     
         noStroke();
         textSize(35)
@@ -36,8 +38,8 @@ function draw(){
     Engine.update(engine);
     //strokeWeight(4);
      ground.display();
-    //pc.display();
-    drawSprites();
+    pc1.display();
+    //drawSprites();
 }
 
 async function getBackgroundImg(){
@@ -47,13 +49,15 @@ async function getBackgroundImg(){
     var datetime = responseJSON.datetime;
     var hour = datetime.slice(11,13);
     
-    if(hour>=0600 && hour<=1900){
+    if(hour>=0600 && hour<=1800){
         bg = "sprites/cuidad.jpg";
     }
     else{
-        bg = "sprites/ciudad.jpg";
+        bg2 = "sprites/ciudadnoche.jpg";
     }
 
     backgroundImg = loadImage(bg);
+    backgroundImg2 = loadImage(bg2);
     console.log(backgroundImg);
+    console.log(backgroundImg2);
 }
