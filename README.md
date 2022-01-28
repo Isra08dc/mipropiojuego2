@@ -1,2 +1,2 @@
-# AngryBirdsEtapa3
-Angry Birds Etapa 3: Introducción a la Restricción
+# AngryBirdsStage3
+Stage 3 Angry Birds: Introducing Constraint

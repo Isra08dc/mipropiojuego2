@@ -4,31 +4,36 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
 var engine, world;
-var backgroundImg,backgroundImg2,pc1,ground;
+var box1, pig1,pig3;
+var backgroundImg,platform;
+var bird, slingshot;
 
 var gameState = "onSling";
 var bg = "sprites/ciudad.jpg";
-var bg2 = "sprites/ciudadnoche.jpg";
-var base = "sprites/base.png";
+var bg2 = "sprites/ciudadnoche.jpj"
 var score = 0;
 
 function preload() {
     getBackgroundImg();
+     pC=loadImage("sprites/pc.png")
 }
 
 function setup(){
-    var canvas = createCanvas(1200,400);
+    var canvas = createCanvas(displayWidth, displayHeight-120);
     engine = Engine.create();
     world = engine.world;
-    ground = new Ground(600,height,1200,20);
-    pc1 = new Pc(50,190,30);
-    //pc1=createSprites(20,370);
-   
+    ground = new Ground(600,height,1600,20);
+    persona=createSprite(100,height-100,40,20);
+    persona.addImage(pC);
+    persona.scale=0.5;
+    ground = createSprite(800,height-25,3000,20);
+    ground.visible = false
+    //slingshot = new SlingShot(bird.body,{x:200, y:50});
 }
 
 function draw(){
-    if(backgroundImg, backgroundImg2)
-        background(backgroundImg, backgroundImg2);
+    if(backgroundImg)
+        background(backgroundImg);
     
         noStroke();
         textSize(35)
@@ -37,27 +42,58 @@ function draw(){
     
     Engine.update(engine);
     //strokeWeight(4);
+    
+     if(keyDown("space")&& persona.y >= 400) {
+        persona.velocityY = -12;
+     }
+     if (keyDown("RIGHT_ARROW")){
+         persona.velocityX = 8
+     }
+
+     if (keyDown("LEFT_ARROW")){
+         persona.velocityX = -8
+     }
+     persona.velocityY = persona.velocityY + 0.8;
      ground.display();
-    pc1.display();
-    //drawSprites();
+     persona.collide(ground);
+     //slingshot.display();
+   drawSprites();
+}
+
+function mouseDragged(){
+    if (gameState!=="launched"){
+        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    }
+}
+
+
+function mouseReleased(){
+    slingshot.fly();
+    gameState = "launched";
+}
+
+function keyPressed(){
+    if(keyCode === 32 && persona.velocityY>=100){
+       bird.trajectory = [];
+       Matter.Body.setPosition(bird.body,{x:200, y:50});
+       slingshot.attach(bird.body);
+    }
 }
 
 async function getBackgroundImg(){
-    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+    var response = await fetch("http://worldtimeapi.org/api/timezone/America/Mexico_City");
     var responseJSON = await response.json();
 
     var datetime = responseJSON.datetime;
     var hour = datetime.slice(11,13);
     
-    if(hour>=0600 && hour<=1800){
-        bg = "sprites/cuidad.jpg";
+    if(hour>=0600 && hour<=1900){
+        bg = "sprites/ciudad.jpg";
     }
     else{
-        bg2 = "sprites/ciudadnoche.jpg";
+        bg = "sprites/ciudadnoche.jpg";
     }
 
     backgroundImg = loadImage(bg);
-    backgroundImg2 = loadImage(bg2);
     console.log(backgroundImg);
-    console.log(backgroundImg2);
 }
