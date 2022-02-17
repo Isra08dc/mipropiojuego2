@@ -26,6 +26,8 @@ function setup(){
     persona=createSprite(100,height-100,40,20);
     persona.addImage(pC);
     persona.scale=0.5;
+    comentarios=createSprite(100,height-100,40,20);
+    comentarios.addImage(obstaculos.png);
     ground = createSprite(800,height-25,3000,20);
     ground.visible = false
     //slingshot = new SlingShot(bird.body,{x:200, y:50});
