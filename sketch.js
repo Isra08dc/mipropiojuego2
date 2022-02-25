@@ -11,11 +11,13 @@ var bird, slingshot;
 var gameState = "onSling";
 var bg = "sprites/ciudad.jpg";
 var bg2 = "sprites/ciudadnoche.jpj"
+//var obstaculos ="sprites/obstaculos.png"
 var score = 0;
 
 function preload() {
     getBackgroundImg();
      pC=loadImage("sprites/pc.png")
+     obs=loadImage("sprites/obstaculos.png")
 }
 
 function setup(){
@@ -26,8 +28,8 @@ function setup(){
     persona=createSprite(100,height-100,40,20);
     persona.addImage(pC);
     persona.scale=0.5;
-    comentarios=createSprite(100,height-100,40,20);
-    comentarios.addImage(obstaculos.png);
+    obstaculos=createSprite(100,height-100,40,20);
+    obstaculos.addImage("obstaculos.png");
     ground = createSprite(800,height-25,3000,20);
     ground.visible = false
     //slingshot = new SlingShot(bird.body,{x:200, y:50});
