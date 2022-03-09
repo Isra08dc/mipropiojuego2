@@ -6,7 +6,7 @@ const Constraint = Matter.Constraint;
 var engine, world;
 var box1, pig1,pig3;
 var backgroundImg,platform;
-var bird, slingshot;
+var bird, slingshot, obs;
 
 var gameState = "onSling";
 var bg = "sprites/ciudad.jpg";
@@ -29,7 +29,7 @@ function setup(){
     persona.addImage(pC);
     persona.scale=0.5;
     obstaculos=createSprite(100,height-100,40,20);
-    obstaculos.addImage("obstaculos.png");
+    obstaculos.addImage(obs);
     ground = createSprite(800,height-25,3000,20);
     ground.visible = false
     //slingshot = new SlingShot(bird.body,{x:200, y:50});
