@@ -28,8 +28,9 @@ function setup(){
     persona=createSprite(100,height-100,40,20);
     persona.addImage(pC);
     persona.scale=0.5;
-    obstaculos=createSprite(100,height-100,40,20);
+    obstaculos=createSprite(1000,550,10,10);
     obstaculos.addImage(obs);
+    obstaculos.scale=0.4
     ground = createSprite(800,height-25,3000,20);
     ground.visible = false
     //slingshot = new SlingShot(bird.body,{x:200, y:50});
@@ -57,7 +58,8 @@ function draw(){
      if (keyDown("LEFT_ARROW")){
          persona.velocityX = -8
      }
-     persona.velocityY = persona.velocityY + 0.8;
+     persona.velocityY = persona.velocityY + 0.5;
+     obstaculos.velocityX=obstaculos.velocityX-2
      ground.display();
      persona.collide(ground);
      //slingshot.display();
